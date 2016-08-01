@@ -352,16 +352,11 @@ calculate 4-particle cumulant
 
   D_4 = Q_0_1.operator*(4) - (Q_0_1*Q_0_1*Q_0_2).operator*(6) + (Q_0_2*Q_0_2).operator*(3) + (Q_0_1*Q_0_3).operator*(8) - Q_0_4.operator*(6);
  
-  c4->Fill( N_4.Re()/D_4.Re());
-  c4_imag->Fill( N_4.Im()/D_4.Re());
+  c4->Fill( N_4.Re()/D_4.Re(), D_4.Re());
+  c4_imag->Fill( N_4.Im()/D_4.Re(), D_4.Re());
 
 
-  cout << "N_4: " << N_4.Re() << endl;
-  cout << "D_4: " << D_4.Re() << endl;
-  cout << "ratio : " << N_4.Re()/D_4.Re() << endl;
 }
-
-
 // ------------ method called once each job just before starting event loop  ------------
 void 
 SC_MixedHarmonics::beginJob()
@@ -380,15 +375,15 @@ SC_MixedHarmonics::beginJob()
   vtxZ = fs->make<TH1D>("vtxZ",";vz", 400,-20,20);
   cbinHist = fs->make<TH1D>("cbinHist",";cbin",200,0,200);
 
-  c2_k = fs->make<TH1D>("c2_k",";c2", 2000,-1,1);
-  c2_m = fs->make<TH1D>("c2_m",";c2", 2000,-1,1);
-  c3 = fs->make<TH1D>("c3",";c3", 20000,-100,100);
-  c4 = fs->make<TH1D>("c4",";c4", 20000,-100,100);
+  c2_k = fs->make<TH1D>("c2_k",";c2", 20000,-1,1);
+  c2_m = fs->make<TH1D>("c2_m",";c2", 20000,-1,1);
+  c3 = fs->make<TH1D>("c3",";c3", 20000,-1,1);
+  c4 = fs->make<TH1D>("c4",";c4", 20000,-1,1);
 
-  c2_k_imag = fs->make<TH1D>("c2_k_imag",";c2", 2000,-1,1);
-  c2_m_imag = fs->make<TH1D>("c2_m_imag",";c2", 2000,-1,1);
-  c3_imag = fs->make<TH1D>("c3_imag",";c3", 2000,-1,1);
-  c4_imag = fs->make<TH1D>("c4_imag",";c4", 2000,-1,1);
+  c2_k_imag = fs->make<TH1D>("c2_k_imag",";c2", 20000,-1,1);
+  c2_m_imag = fs->make<TH1D>("c2_m_imag",";c2", 20000,-1,1);
+  c3_imag = fs->make<TH1D>("c3_imag",";c3", 20000,-1,1);
+  c4_imag = fs->make<TH1D>("c4_imag",";c4", 20000,-1,1);
 }
 
 TComplex 
