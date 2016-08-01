@@ -210,7 +210,7 @@ SC_MixedHarmonics::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
         
   }
 
-  cout << "Q_n1_1: " << Q_n1_1 << endl;
+  cout << "Q_n1_1: " << Q_n1_1.Re() << endl;
 
 
 
