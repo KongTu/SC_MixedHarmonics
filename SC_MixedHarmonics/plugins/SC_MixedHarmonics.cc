@@ -57,6 +57,7 @@ SC_MixedHarmonics::SC_MixedHarmonics(const edm::ParameterSet& iConfig)
   etaBins_ = iConfig.getUntrackedParameter<std::vector<double>>("etaBins");
   dEtaBins_ = iConfig.getUntrackedParameter<std::vector<double>>("dEtaBins");
   ptBins_ = iConfig.getUntrackedParameter<std::vector<double>>("ptBins");
+  centBins_ = iConfig.getUntrackedParameter<std::vector<double>>("centBins");
 
 }
 
@@ -127,6 +128,35 @@ SC_MixedHarmonics::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 
   Ntrk->Fill( total );
   
+  if( useCentrality_ ){
+
+    for( unsigned i = 0; i<towers->size(); ++ i){
+       const CaloTower & tower = (*towers)[ i ];
+       double eta = tower.eta();
+       bool isHF = tower.ietaAbs() > 29;
+          if(isHF && eta > 0){
+            etHFtowerSumPlus += tower.pt();
+          }
+          if(isHF && eta < 0){
+            etHFtowerSumMinus += tower.pt();
+          }
+    }
+    etHFtowerSum=etHFtowerSumPlus + etHFtowerSumMinus;
+
+    int bin = -1;
+    for(int j=0; j<200; j++){
+      if( etHFtowerSum >= centBins_[j] ){
+         bin = j; break;
+      }
+    }
+
+    int hiBin = bin;
+    cbinHist->Fill( hiBin );
+    if( hiBin < Nmin_ || hiBin >= Nmax_ ) return;
+
+  }
+
+
 }
 
 
@@ -140,6 +170,7 @@ SC_MixedHarmonics::beginJob()
 
   Ntrk = fs->make<TH1D>("Ntrk",";Ntrk",5000,0,5000);
   vtxZ = fs->make<TH1D>("vtxZ",";vz", 400,-20,20);
+  cbinHist = fs->make<TH1D>("cbinHist",";cbin",200,0,200);
 }
 
 // ------------ method called once each job just after ending the event loop  ------------

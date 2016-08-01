@@ -204,6 +204,7 @@ class SC_MixedHarmonics : public edm::EDAnalyzer {
       std::vector<double> etaBins_;
       std::vector<double> dEtaBins_;
       std::vector<double> ptBins_;
+      std::vector<double> centBins_;
 
 };
 
