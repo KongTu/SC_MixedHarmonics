@@ -327,8 +327,8 @@ calculate 3-particle cumulant
 
   TComplex N_3, D_3;
 
-  N_3 = Q_n1_1*Q_n2_1*Q_n3_1 - Q_n1n2_2*Q_n3_1 - Q_n2_1*Q_n1n3_2 - Q_n1_1*Q_n2n3_2 - 2*TComplex::operator*(Q_n1n2n3_3);
-  D_3 = Q_0_1*Q_0_1*Q_0_1 - 3*TComplex::operator*(Q_0_2*Q_0_1) + 2*TComplex::operator*(Q_0_3);
+  N_3 = Q_n1_1*Q_n2_1*Q_n3_1 - Q_n1n2_2*Q_n3_1 - Q_n2_1*Q_n1n3_2 - Q_n1_1*Q_n2n3_2 - Q_n1n2n3_3.operator*(2);
+  D_3 = Q_0_1*Q_0_1*Q_0_1 - (Q_0_2*Q_0_1).operator*(3) + Q_0_3.operator*(2);
 
   c3->Fill( N_3.Re()/D_3.Re(), D_3.Re());
 
