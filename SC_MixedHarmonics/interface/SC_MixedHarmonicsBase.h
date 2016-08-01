@@ -156,9 +156,6 @@ class SC_MixedHarmonics : public edm::EDAnalyzer {
       virtual void endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&);
 
       // ----------member data ---------------------------
-      edm::EDGetTokenT<reco::Centrality> centralityToken_;
-      edm::EDGetTokenT<int> centralityBinToken_;
-
       edm::EDGetTokenT<reco::VertexCollection> vertexSrc_;
       edm::EDGetTokenT<reco::TrackCollection> trackSrc_;
       edm::EDGetTokenT<CaloTowerCollection> towerSrc_;
