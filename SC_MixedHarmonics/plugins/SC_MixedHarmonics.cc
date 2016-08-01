@@ -293,9 +293,9 @@ calculate 2-particle cumulant with a gap
 
       if( ieta == jeta ){
 
-        N_2_k = Q_k1_1[ieta]*Q_k2_1[jeta] - Q_k1k2_2[eta];
-        N_2_m = Q_m1_1[ieta]*Q_m2_1[jeta] - Q_m1m2_2[eta];
-        D_2 = Q_eta_0_1[ieta]*Q_eta_0_1[jeta] - Q_eta_0_2[eta];
+        N_2_k = Q_k1_1[ieta]*Q_k2_1[jeta] - Q_k1k2_2[ieta];
+        N_2_m = Q_m1_1[ieta]*Q_m2_1[jeta] - Q_m1m2_2[ieta];
+        D_2 = Q_eta_0_1[ieta]*Q_eta_0_1[jeta] - Q_eta_0_2[ieta];
 
       }
       else{
