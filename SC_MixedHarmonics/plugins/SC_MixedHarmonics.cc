@@ -162,7 +162,7 @@ SC_MixedHarmonics::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 
   Ntrk->Fill( nTracks );
 
-  TComplex a1;
+  TComplex a1,a2,a3;
   a1 = q_vector(2, 1, 1, 1.5);
 
   cout << "q_vector real: " << a1.Re() << endl;
