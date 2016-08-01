@@ -147,7 +147,28 @@ void
 SC_MixedHarmonics::endJob() 
 {
 }
+void 
+SC_MixedHarmonics::beginRun(edm::Run const&, edm::EventSetup const&)
+{
+}
 
+// ------------ method called when ending the processing of a run  ------------
+void 
+SC_MixedHarmonics::endRun(edm::Run const&, edm::EventSetup const&)
+{
+}
+
+// ------------ method called when starting to processes a luminosity block  ------------
+void 
+SC_MixedHarmonics::beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
+{
+}
+
+// ------------ method called when ending the processing of a luminosity block  ------------
+void 
+SC_MixedHarmonics::endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
+{
+}
 // ------------ method fills 'descriptions' with the allowed parameters for the module  ------------
 void
 SC_MixedHarmonics::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
