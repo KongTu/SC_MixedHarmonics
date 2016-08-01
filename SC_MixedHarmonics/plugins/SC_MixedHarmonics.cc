@@ -43,6 +43,8 @@ SC_MixedHarmonics::SC_MixedHarmonics(const edm::ParameterSet& iConfig)
   reverseBeam_ = iConfig.getUntrackedParameter<bool>("reverseBeam");
   doEffCorrection_ = iConfig.getUntrackedParameter<bool>("doEffCorrection");
 
+  eff_ = iConfig.getUntrackedParameter<int>("eff");
+
   etaTracker_ = iConfig.getUntrackedParameter<double>("etaTracker");
   
   etaLowHF_ = iConfig.getUntrackedParameter<double>("etaLowHF");
@@ -192,7 +194,7 @@ SC_MixedHarmonics::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
         double phi = trk.phi();
 
         double weight = 1.0;
-        if( doEffCorrection_ ) { weight = 1.0/effTable->GetBinContent( effTable->FindBin(trk.eta(), trk.pt()) );}
+        if( doEffCorrection_ ) { weight = 1.0/effTable[eff_]->GetBinContent( effTable[eff_]->FindBin(trk.eta(), trk.pt()) );}
 
         if(!trk.quality(reco::TrackBase::highPurity)) continue;
         if(fabs(trk.ptError())/trk.pt() > offlineptErr_ ) continue;

@@ -182,6 +182,8 @@ class SC_MixedHarmonics : public edm::EDAnalyzer {
       int Nmin_;
       int Nmax_;
 
+      int eff_;
+
       int n1_;
       int n2_;
       int n3_;
