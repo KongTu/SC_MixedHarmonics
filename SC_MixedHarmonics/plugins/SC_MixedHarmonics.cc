@@ -127,6 +127,10 @@ SC_MixedHarmonics::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
   }
 
   Ntrk->Fill( total );
+
+  double etHFtowerSumPlus = 0.0;
+  double etHFtowerSumMinus = 0.0;
+  double etHFtowerSum = 0.0;
   
   if( useCentrality_ ){
 
