@@ -217,7 +217,8 @@ SC_MixedHarmonics::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 
   double c2 = N_2.Re()/D_2.Re();
 
-  cout << "c2: " << c2 << endl;
+  c2_a->Fill(c2, D_2.Re() );
+
 }
 
 
@@ -238,6 +239,8 @@ SC_MixedHarmonics::beginJob()
   Ntrk = fs->make<TH1D>("Ntrk",";Ntrk",5000,0,5000);
   vtxZ = fs->make<TH1D>("vtxZ",";vz", 400,-20,20);
   cbinHist = fs->make<TH1D>("cbinHist",";cbin",200,0,200);
+
+  c2_a = fs->make<TH1D>("c2_a",";c2", 2000,-1,1);
 }
 
 TComplex 
