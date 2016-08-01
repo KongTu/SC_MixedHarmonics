@@ -25,6 +25,7 @@
 #include <TRandom.h>
 #include <TNtuple.h>
 #include <TGraph.h>
+#include <TComplex.h>
 
 // user include files
 #include "FWCore/Framework/interface/Frameworkfwd.h"
@@ -149,11 +150,11 @@ class SC_MixedHarmonics : public edm::EDAnalyzer {
       virtual void beginJob() ;
       virtual void analyze(const edm::Event&, const edm::EventSetup&);
       virtual void endJob() ;
-
       virtual void beginRun(edm::Run const&, edm::EventSetup const&);
       virtual void endRun(edm::Run const&, edm::EventSetup const&);
       virtual void beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&);
       virtual void endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&);
+      virtual TComplex q_vector(double n, double p, double w, double phi);
 
       // ----------member data ---------------------------
       edm::EDGetTokenT<reco::VertexCollection> vertexSrc_;

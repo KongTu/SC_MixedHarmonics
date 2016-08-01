@@ -179,6 +179,14 @@ SC_MixedHarmonics::beginJob()
   cbinHist = fs->make<TH1D>("cbinHist",";cbin",200,0,200);
 }
 
+TComplex 
+SC_MixedHarmonics::q_vector(double n, double p, double w, double phi) 
+{
+  double term1 = pow(w,p);
+  TComplex e(1, n*phi, 1);
+  return term1*e;
+}
+
 // ------------ method called once each job just after ending the event loop  ------------
 void 
 SC_MixedHarmonics::endJob() 
