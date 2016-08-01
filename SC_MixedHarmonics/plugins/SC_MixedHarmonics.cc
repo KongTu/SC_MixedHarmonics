@@ -42,10 +42,13 @@ SC_MixedHarmonics::SC_MixedHarmonics(const edm::ParameterSet& iConfig)
   useCentrality_ = iConfig.getUntrackedParameter<bool>("useCentrality");
   reverseBeam_ = iConfig.getUntrackedParameter<bool>("reverseBeam");
   doEffCorrection_ = iConfig.getUntrackedParameter<bool>("doEffCorrection");
+  useEtaGap_ = iConfig.getUntrackedParameter<bool>("useEtaGap");
 
   eff_ = iConfig.getUntrackedParameter<int>("eff");
 
   etaTracker_ = iConfig.getUntrackedParameter<double>("etaTracker");
+
+  gapValue_ = iConfig.getUntrackedParameter<double>("gapValue");
   
   etaLowHF_ = iConfig.getUntrackedParameter<double>("etaLowHF");
   etaHighHF_ = iConfig.getUntrackedParameter<double>("etaHighHF");
@@ -169,6 +172,8 @@ SC_MixedHarmonics::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 
   Ntrk->Fill( nTracks );
 
+  const int NetaBins = etaBins_.size() - 1 ;
+
 /*
 The SC(m,n) = <<cos(m+n-m-n)>> - <<cos(m-m)>><<cos(n-n)>>
  */
@@ -180,7 +185,8 @@ where Q_coefficient_power is used in the following names
 
 //2-particle correlator
 
-  TComplex Q_k1_1, Q_k2_1, Q_k1k2_2, Q_m1_1, Q_m2_1, Q_m1m2_2; 
+  TComplex Q_k1_1[NetaBins], Q_k2_1[NetaBins], Q_k1k2_2[NetaBins], Q_m1_1[NetaBins],
+  Q_m2_1[NetaBins], Q_m1m2_2[NetaBins], Q_eta_0_1[NetaBins], Q_eta_0_2[NetaBins]; 
 
 //4-particle correlator
 
@@ -212,6 +218,7 @@ where Q_coefficient_power is used in the following names
         double nlayers = trk.hitPattern().trackerLayersWithMeasurement();
         chi2n = chi2n/nlayers;
         double phi = trk.phi();
+        double trkEta = trk.eta();
 
         double weight = 1.0;
         if( doEffCorrection_ ) { weight = 1.0/effTable[eff_]->GetBinContent( effTable[eff_]->FindBin(trk.eta(), trk.pt()) );}
@@ -225,18 +232,25 @@ where Q_coefficient_power is used in the following names
         if(trk.pt() < ptLow_ || trk.pt() > ptHigh_ ) continue;
         if(fabs(trk.eta()) > etaTracker_ ) continue;
 
-//2-particle:
+        for(int eta = 0; eta < NetaBins; eta++){
+          if( trkEta > etaBins_[eta] && trkEta < etaBins_[eta+1] ){
+          
+            //for use of 2-particle:
+            Q_k1_1[eta] += q_vector(n1_, 1, weight, phi);
+            Q_k2_1[eta] += q_vector(-n1_, 1, weight, phi);
+            Q_k1k2_2[eta] += q_vector(0.0, 1, weight, phi);
 
-        Q_k1_1 += q_vector(n1_, 1, weight, phi);
-        Q_k2_1 += q_vector(-n1_, 1, weight, phi);
-        Q_k1k2_2 += q_vector(0.0, 1, weight, phi);
+            Q_m1_1[eta] += q_vector(n2_, 1, weight, phi);
+            Q_m2_1[eta] += q_vector(-n2_, 1, weight, phi);
+            Q_m1m2_2[eta] += q_vector(0.0, 1, weight, phi);
 
-        Q_m1_1 += q_vector(n2_, 1, weight, phi);
-        Q_m2_1 += q_vector(-n2_, 1, weight, phi);
-        Q_m1m2_2 += q_vector(0.0, 1, weight, phi);
+            Q_eta_0_1[eta] += q_vector(0,1,weight,phi);
+            Q_eta_0_2[eta] += q_vector(0,2,weight,phi);
 
-//4-particle:
+          }
+        }
 
+        //for use of 4-particle:
         Q_n1_1 += q_vector(n1_, 1, weight, phi);
         Q_n2_1 += q_vector(n2_, 1, weight, phi);
         Q_n3_1 += q_vector(n3_, 1, weight, phi);
@@ -263,12 +277,52 @@ where Q_coefficient_power is used in the following names
 
   }
 
-  TComplex N_2_k = Q_k1_1*Q_k2_1 - Q_k1k2_2;
-  TComplex N_2_m = Q_m1_1*Q_m2_1 - Q_m1m2_2;
-  TComplex D_2 = Q_0_1*Q_0_1 - Q_0_2;
 
-  c2_k->Fill(N_2_k.Re()/D_2.Re(), D_2.Re());
-  c2_m->Fill(N_2_m.Re()/D_2.Re(), D_2.Re());
+/*
+calculate 2-particle cumulant with a gap
+ */
+
+  for(int ieta = 0; ieta < NetaBins; ieta++){
+    for(int jeta = 0; jeta < NetaBins; jeta++){
+
+      double deltaEta = fabs( etaBins_[ieta] - etaBins_[jeta] );
+
+      TComplex N_2_k;
+      TComplex N_2_m;
+      TComplex D_2;
+
+      if( ieta == jeta ){
+
+        N_2_k = Q_k1_1[ieta]*Q_k2_1[jeta] - Q_k1k2_2[eta];
+        N_2_m = Q_m1_1[ieta]*Q_m2_1[jeta] - Q_m1m2_2[eta];
+        D_2 = Q_0_1[ieta]*Q_0_1[jeta] - Q_eta_0_2[eta];
+
+      }
+      else{
+        
+        N_2_k = Q_k1_1[ieta]*Q_k2_1[jeta];
+        N_2_m = Q_m1_1[ieta]*Q_m2_1[jeta];
+        D_2 = Q_0_1[ieta]*Q_0_1[jeta];
+      }
+      
+      if( useEtaGap_ ){
+        if(deltaEta < gapValue_) continue;
+
+        c2_k->Fill(N_2_k.Re()/D_2.Re(), D_2.Re());
+        c2_m->Fill(N_2_m.Re()/D_2.Re(), D_2.Re());
+      }
+      else{
+
+        c2_k->Fill(N_2_k.Re()/D_2.Re(), D_2.Re());
+        c2_m->Fill(N_2_m.Re()/D_2.Re(), D_2.Re());
+        
+      }
+    }
+  }
+
+/*
+calculate 4-particle cumulant
+ */  
 
 
 }

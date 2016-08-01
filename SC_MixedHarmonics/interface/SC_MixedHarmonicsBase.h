@@ -193,6 +193,8 @@ class SC_MixedHarmonics : public edm::EDAnalyzer {
       int n4_;
 
       double etaTracker_;
+
+      double gapValue_;
       
       double etaLowHF_;
       double etaHighHF_;
@@ -211,6 +213,7 @@ class SC_MixedHarmonics : public edm::EDAnalyzer {
       bool useCentrality_;
       bool reverseBeam_;
       bool doEffCorrection_;
+      bool useEtaGap_;
 
       std::vector<double> etaBins_;
       std::vector<double> dEtaBins_;
