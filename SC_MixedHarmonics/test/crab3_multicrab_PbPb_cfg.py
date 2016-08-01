@@ -15,7 +15,7 @@ config.General.transferLogs = True
 config.JobType.allowUndistributedCMSSW = True
 
 config.JobType.pluginName = 'Analysis'
-config.JobType.psetName = 'threepointcorrelatoretagap_cfg.py'
+config.JobType.psetName = 'sc_mixedharmonics_cfg.py'
 config.Data.allowNonValidInputDataset = True
 config.Data.inputDBS = 'global'
 config.Data.splitting = 'FileBased'
