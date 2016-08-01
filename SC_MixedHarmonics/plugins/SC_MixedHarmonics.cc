@@ -350,7 +350,7 @@ calculate 4-particle cumulant
       + (Q_n3_1*Q_n1n2n4_3).operator*(2) - Q_n1_1*Q_n2_1*Q_n3n4_2 + Q_n1n2_2*Q_n3n4_2
       + (Q_n2_1*Q_n1n3n4_3).operator*(2) + (Q_n1_1*Q_n2n3n4_3).operator*(2) - Q_n1n2n3n4_4.operator*(6);
 
-  D_4 = Q_0_1.operator*(4) - (Q_0_1*Q_0_1*Q_0_2).operator*(6) + (Q_0_2*Q_0_2).operator*(3) + (Q_0_1*Q_0_3).operator*(8) - Q_0_4.operator*(6);
+  D_4 = Q_0_1*Q_0_1*Q_0_1*Q_0_1 - (Q_0_1*Q_0_1*Q_0_2).operator*(6) + (Q_0_2*Q_0_2).operator*(3) + (Q_0_1*Q_0_3).operator*(8) - Q_0_4.operator*(6);
  
   c4->Fill( N_4.Re()/D_4.Re(), D_4.Re());
   c4_imag->Fill( N_4.Im()/D_4.Re(), D_4.Re());
