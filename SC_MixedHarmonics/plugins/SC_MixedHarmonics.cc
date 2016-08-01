@@ -176,6 +176,7 @@ SC_MixedHarmonics::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
   //TComplex Q_n1_1, Q_n2_1, Q_n1n2_2;
   //TComplex Q_0_1, Q_0_2;
 
+  double Q_cos = 0.;;
 
   for(unsigned it = 0; it < tracks->size(); it++){
 
@@ -205,13 +206,14 @@ SC_MixedHarmonics::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
         if(trk.pt() < ptLow_ || trk.pt() > ptHigh_ ) continue;
         if(fabs(trk.eta()) > etaTracker_ ) continue;
 
+        Q_cos += weight*cos(2*phi);
 
         Q_n1_1 += q_vector(n1_, 1, weight, phi);
         
   }
 
   cout << "Q_n1_1: " << Q_n1_1.Re() << endl;
-
+  cout << "Q_cos: " << Q_cos << endl;
 
 
 }
