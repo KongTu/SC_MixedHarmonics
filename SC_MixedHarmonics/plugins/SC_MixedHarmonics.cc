@@ -188,7 +188,7 @@ where Q_coefficient_power is used in the following names
   TComplex Q_k1_1[NetaBins], Q_k2_1[NetaBins], Q_k1k2_2[NetaBins], Q_m1_1[NetaBins],
   Q_m2_1[NetaBins], Q_m1m2_2[NetaBins], Q_eta_0_1[NetaBins], Q_eta_0_2[NetaBins]; 
 
-//4-particle correlator
+//4-particle correlator, including the ingredient for 3-particle correlator
 
   TComplex Q_n1_1, Q_n2_1, Q_n3_1, Q_n4_1;
   
@@ -320,11 +320,23 @@ calculate 2-particle cumulant with a gap
     }
   }
 
+
+/*
+calculate 3-particle cumulant
+ */
+
+  TComplex N_3, D_3;
+
+  N_3 = Q_n1_1*Q_n2_1*Q_n3_1 - Q_n1n2_2*Q_n3_1 - Q_n2_1*Q_n1n3_2 - Q_n1_1*Q_n2n3_2 - 2*Q_n1n2n3_3;
+  D_3 = Q_0_1*Q_0_1*Q_0_1 - 3*Q_0_2*Q_0_1 + 2*Q_0_3;
+
+  c3->Fill( N_3.Re()/D_3.Re(), D_3.Re());
+
 /*
 calculate 4-particle cumulant
  */  
 
-
+ 
 }
 
 
@@ -348,6 +360,8 @@ SC_MixedHarmonics::beginJob()
 
   c2_k = fs->make<TH1D>("c2_k",";c2", 2000,-1,1);
   c2_m = fs->make<TH1D>("c2_m",";c2", 2000,-1,1);
+
+  c3 = fs->make<TH1D>("c3",";c3", 2000,-1,1);
 }
 
 TComplex 
