@@ -169,12 +169,34 @@ SC_MixedHarmonics::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 
   Ntrk->Fill( nTracks );
 
+/*
+The SC(m,n) = <<cos(m+n-m-n)>> - <<cos(m-m)>><<cos(n-n)>>
+ */
+
+/*
+define all the ingredients for 2-, 3-, and 4-particle cumulants,
+where Q_coefficient_power is used in the following names 
+ */
+
+//2-particle correlator
+
+  TComplex Q_k1_1, Q_k2_1, Q_k1k2_2, Q_m1_1, Q_m2_1, Q_m1m2_2; 
+
+//4-particle correlator
+
+  TComplex Q_n1_1, Q_n2_1, Q_n3_1, Q_n4_1;
+  
+  TComplex Q_n1n2_2, Q_n1n3_2, Q_n1n4_2, Q_n2n3_2, Q_n2n4_2, Q_n3n4_2;
+  
+  TComplex Q_n1n2n3_3, Q_n1n2n4_3, Q_n1n3n4_3, Q_n2n3n4_3;
+  
+  TComplex Q_n1n2n3n4_4;
+  
+  TComplex Q_0_1, Q_0_2, Q_0_3, Q_0_4;
+
+//------------------------------------------------------------------
 
 //Start filling Q-vectors;
-
-//two-particle cumulant:
-  TComplex Q_n1_1, Q_n2_1, Q_n1n2_2, Q_0_1, Q_0_2;
-
   for(unsigned it = 0; it < tracks->size(); it++){
 
      const reco::Track & trk = (*tracks)[it];
@@ -203,21 +225,51 @@ SC_MixedHarmonics::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
         if(trk.pt() < ptLow_ || trk.pt() > ptHigh_ ) continue;
         if(fabs(trk.eta()) > etaTracker_ ) continue;
 
+//2-particle:
+
+        Q_k1_1 += q_vector(n1_, 1, weight, phi);
+        Q_k2_1 += q_vector(-n1_, 1, weight, phi);
+        Q_k1k2_2 += q_vector(0.0, 1, weight, phi);
+
+        Q_m1_1 += q_vector(n2_, 1, weight, phi);
+        Q_m2_1 += q_vector(-n2_, 1, weight, phi);
+        Q_m1m2_2 += q_vector(0.0, 1, weight, phi);
+
+//4-particle:
+
         Q_n1_1 += q_vector(n1_, 1, weight, phi);
         Q_n2_1 += q_vector(n2_, 1, weight, phi);
-        Q_n1n2_2 += q_vector(n1_+n2_, 2, weight, phi);
+        Q_n3_1 += q_vector(n3_, 1, weight, phi);
+        Q_n4_1 += q_vector(n4_, 1, weight, phi);
 
+        Q_n1n2_2 += q_vector(n1_+n2_, 2, weight, phi);
+        Q_n1n3_2 += q_vector(n1_+n3_, 2, weight, phi);
+        Q_n1n4_2 += q_vector(n1_+n4_, 2, weight, phi);
+        Q_n2n3_2 += q_vector(n2_+n3_, 2, weight, phi);
+        Q_n2n4_2 += q_vector(n2_+n4_, 2, weight, phi);
+        Q_n3n4_2 += q_vector(n3_+n4_, 2, weight, phi);
+
+        Q_n1n2n3_3 += q_vector(n1_+n2_+n3_, 3, weight, phi);
+        Q_n1n2n4_3 += q_vector(n1_+n2_+n4_, 3, weight, phi);
+        Q_n1n3n4_3 += q_vector(n1_+n3_+n4_, 3, weight, phi);
+        Q_n2n3n4_3 += q_vector(n2_+n3_+n4_, 3, weight, phi);
+
+        Q_n1n2n3n4_4 += q_vector(n1_+n2_+n3_+n4_, 4, weight, phi);
+        
         Q_0_1 += q_vector(0,1,weight,phi);
         Q_0_2 += q_vector(0,2,weight,phi);
+        Q_0_3 += q_vector(0,3,weight,phi);
+        Q_0_4 += q_vector(0,4,weight,phi);
 
   }
 
-  TComplex N_2 = Q_n1_1*Q_n2_1 - Q_n1n2_2;
+  TComplex N_2_k = Q_k1_1*Q_k2_1 - Q_k1k2_2;
+  TComplex N_2_m = Q_m1_1*Q_m2_1 - Q_m1m2_2;
   TComplex D_2 = Q_0_1*Q_0_1 - Q_0_2;
 
-  double c2 = N_2.Re()/D_2.Re();
+  c2_k->Fill(N_2_k.Re()/D_2.Re(), D_2.Re());
+  c2_m->Fill(N_2_m.Re()/D_2.Re(), D_2.Re());
 
-  c2_a->Fill(c2, D_2.Re() );
 
 }
 
@@ -240,7 +292,8 @@ SC_MixedHarmonics::beginJob()
   vtxZ = fs->make<TH1D>("vtxZ",";vz", 400,-20,20);
   cbinHist = fs->make<TH1D>("cbinHist",";cbin",200,0,200);
 
-  c2_a = fs->make<TH1D>("c2_a",";c2", 2000,-1,1);
+  c2_k = fs->make<TH1D>("c2_k",";c2", 2000,-1,1);
+  c2_m = fs->make<TH1D>("c2_m",";c2", 2000,-1,1);
 }
 
 TComplex 
