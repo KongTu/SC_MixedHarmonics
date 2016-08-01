@@ -356,7 +356,9 @@ calculate 4-particle cumulant
   c4_imag->Fill( N_4.Im()/D_4.Re(), D_4.Re());
 
 
-  cout << "N_4: " << N_4 << endl;
+  cout << "N_4: " << N_4.Re() << endl;
+  cout << "D_4: " << D_4.Re() << endl;
+  cout << "ratio : " << N_4.Re()/D_4.Re() << endl;
 }
 
 
@@ -380,8 +382,8 @@ SC_MixedHarmonics::beginJob()
 
   c2_k = fs->make<TH1D>("c2_k",";c2", 2000,-1,1);
   c2_m = fs->make<TH1D>("c2_m",";c2", 2000,-1,1);
-  c3 = fs->make<TH1D>("c3",";c3", 2000,-1,1);
-  c4 = fs->make<TH1D>("c4",";c4", 2000,-1,1);
+  c3 = fs->make<TH1D>("c3",";c3", 20000,-100,100);
+  c4 = fs->make<TH1D>("c4",";c4", 20000,-100,100);
 
   c2_k_imag = fs->make<TH1D>("c2_k_imag",";c2", 2000,-1,1);
   c2_m_imag = fs->make<TH1D>("c2_m_imag",";c2", 2000,-1,1);
