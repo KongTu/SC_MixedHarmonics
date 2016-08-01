@@ -354,6 +354,9 @@ calculate 4-particle cumulant
  
   c4->Fill( N_4.Re()/D_4.Re(), D_4.Re());
   c4_imag->Fill( N_4.Im()/D_4.Re(), D_4.Re());
+
+
+  cout << "N_4: " << N_4 << endl;
 }
 
 
