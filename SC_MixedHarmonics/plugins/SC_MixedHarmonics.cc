@@ -352,8 +352,8 @@ calculate 4-particle cumulant
 
   D_4 = Q_0_1.operator*(4) - (Q_0_1*Q_0_1*Q_0_2).operator*(6) + (Q_0_2*Q_0_2).operator*(3) + (Q_0_1*Q_0_3).operator*(8) - Q_0_4.operator*(6);
  
-  c4->Fill( N_4.Re()/D_4.Re(), D_4.Re());
-  c4_imag->Fill( N_4.Im()/D_4.Re(), D_4.Re());
+  c4->Fill( N_4.Re()/D_4.Re());
+  c4_imag->Fill( N_4.Im()/D_4.Re());
 
 
   cout << "N_4: " << N_4.Re() << endl;
