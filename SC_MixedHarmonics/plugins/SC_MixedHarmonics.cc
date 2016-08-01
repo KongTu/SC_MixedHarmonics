@@ -330,18 +330,23 @@ calculate 3-particle cumulant
   N_3 = Q_n1_1*Q_n2_1*Q_n3_1 - Q_n1n2_2*Q_n3_1 - Q_n2_1*Q_n1n3_2 - Q_n1_1*Q_n2n3_2 - Q_n1n2n3_3.operator*(2);
   D_3 = Q_0_1*Q_0_1*Q_0_1 - (Q_0_2*Q_0_1).operator*(3) + Q_0_3.operator*(2);
 
-  TComplex D_3_check = Q_0_1*Q_0_1*Q_0_1 - Q_0_2*Q_0_1 - Q_0_2*Q_0_1 - Q_0_2*Q_0_1 + Q_0_3 + Q_0_3;
-
-  cout << "D_3: " << D_3 << endl;
-  cout << "D_3_check: " << D_3_check << endl;
-
   c3->Fill( N_3.Re()/D_3.Re(), D_3.Re());
 
 /*
 calculate 4-particle cumulant
  */  
 
+  TComplex N_4, D_4;
+
+  N_4 = Q_n1_1*Q_n2_1*Q_n3_1*Q_n4_1 - Q_n1n2_2*Q_n3_1*Q_n4_1 - Q_n2_1*Q_n1n3_2*Q_n4_1
+      - Q_n1_1*Q_n2n3_2*Q_n4_1 + (Q_n1n2n3_3*Q_n4_1).operator*(2) - Q_n2_1*Q_n3_1*Q_n1n4_2
+      + Q_n2n3_2*Q_n1n4_2 - Q_n1_1*Q_n3_1*Q_n2n4_2 + Q_n1n3_2*Q_n2n4_2
+      + (Q_n3_1*Q_n1n2n4_3).operator*(2) - Q_n1_1*Q_n2_1*Q_n3n4_2 + Q_n1n2_2*Q_n3n4_2
+      + (Q_n2_1*Q_n1n3n4_3).operator*(2) + (Q_n1_1*Q_n2n3n4_3).operator*(2) - Q_n1n2n3n4_4.operator*(6);
+
+  D_4 = Q_0_1.operator*(4) - (Q_0_1*Q_0_1*Q_0_2).operator*(6) + (Q_0_2*Q_0_2).operator*(3) + (Q_0_1*Q_0_3).operator*(8) - Q_0_4.operator*(6);
  
+  c4->Fill( N_4.Re()/D_4.Re(), D_4.Re());
 }
 
 
@@ -367,6 +372,8 @@ SC_MixedHarmonics::beginJob()
   c2_m = fs->make<TH1D>("c2_m",";c2", 2000,-1,1);
 
   c3 = fs->make<TH1D>("c3",";c3", 2000,-1,1);
+
+  c4 = fs->make<TH1D>("c4",";c4", 2000,-1,1);
 }
 
 TComplex 
