@@ -2,7 +2,6 @@
 #define SC_MixedHarmonicsBase_
 
 
-// system include files
 #include <memory>
 #include <string>
 #include <vector>
@@ -84,6 +83,9 @@
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include "FWCore/ServiceRegistry/interface/Service.h"
 
+#include "Geometry/Records/interface/TrackerDigiGeometryRecord.h"
+#include "Geometry/TrackerGeometryBuilder/interface/PixelGeomDetUnit.h"
+#include "Geometry/TrackerGeometryBuilder/interface/TrackerGeometry.h"
 
 #include "HLTrigger/HLTcore/interface/HLTConfigProvider.h"
 
@@ -108,13 +110,10 @@
 
 #include "SimDataFormats/TrackingAnalysis/interface/TrackingParticle.h"
 #include "SimDataFormats/TrackingAnalysis/interface/TrackingParticleFwd.h"
+#include "SimTracker/Records/interface/TrackAssociatorRecord.h"
 #include "DataFormats/RecoCandidate/interface/TrackAssociation.h"
 #include "DataFormats/TrackReco/interface/DeDxData.h"
 #include "DataFormats/HepMCCandidate/interface/GenParticle.h"
-
-// Heavyion
-#include "DataFormats/HeavyIonEvent/interface/Centrality.h"
-#include "RecoHI/HiCentralityAlgos/interface/CentralityProvider.h"
 
 // Particle Flow
 #include "DataFormats/ParticleFlowCandidate/interface/PFCandidate.h"
