@@ -310,11 +310,17 @@ calculate 2-particle cumulant with a gap
 
         c2_k->Fill(N_2_k.Re()/D_2.Re(), D_2.Re());
         c2_m->Fill(N_2_m.Re()/D_2.Re(), D_2.Re());
+
+        c2_k_imag->Fill(N_2_k.Im()/D_2.Re(), D_2.Re());
+        c2_m_imag->Fill(N_2_m.Im()/D_2.Re(), D_2.Re());
       }
       else{
 
         c2_k->Fill(N_2_k.Re()/D_2.Re(), D_2.Re());
         c2_m->Fill(N_2_m.Re()/D_2.Re(), D_2.Re());
+
+        c2_k_imag->Fill(N_2_k.Im()/D_2.Re(), D_2.Re());
+        c2_m_imag->Fill(N_2_m.Im()/D_2.Re(), D_2.Re());
         
       }
     }
@@ -331,7 +337,7 @@ calculate 3-particle cumulant
   D_3 = Q_0_1*Q_0_1*Q_0_1 - (Q_0_2*Q_0_1).operator*(3) + Q_0_3.operator*(2);
 
   c3->Fill( N_3.Re()/D_3.Re(), D_3.Re());
-
+  c3_imag->Fill( N_3.Im()/D_3.Re(), D_3.Re());
 /*
 calculate 4-particle cumulant
  */  
@@ -347,6 +353,7 @@ calculate 4-particle cumulant
   D_4 = Q_0_1.operator*(4) - (Q_0_1*Q_0_1*Q_0_2).operator*(6) + (Q_0_2*Q_0_2).operator*(3) + (Q_0_1*Q_0_3).operator*(8) - Q_0_4.operator*(6);
  
   c4->Fill( N_4.Re()/D_4.Re(), D_4.Re());
+  c4_imag->Fill( N_4.Im()/D_4.Re(), D_4.Re());
 }
 
 
@@ -370,10 +377,13 @@ SC_MixedHarmonics::beginJob()
 
   c2_k = fs->make<TH1D>("c2_k",";c2", 2000,-1,1);
   c2_m = fs->make<TH1D>("c2_m",";c2", 2000,-1,1);
-
   c3 = fs->make<TH1D>("c3",";c3", 2000,-1,1);
-
   c4 = fs->make<TH1D>("c4",";c4", 2000,-1,1);
+
+  c2_k_imag = fs->make<TH1D>("c2_k_imag",";c2", 2000,-1,1);
+  c2_m_imag = fs->make<TH1D>("c2_m_imag",";c2", 2000,-1,1);
+  c3_imag = fs->make<TH1D>("c3_imag",";c3", 2000,-1,1);
+  c4_imag = fs->make<TH1D>("c4_imag",";c4", 2000,-1,1);
 }
 
 TComplex 

@@ -172,9 +172,13 @@ class SC_MixedHarmonics : public edm::EDAnalyzer {
 
       TH1D* c2_k;
       TH1D* c2_m;
-
       TH1D* c3;
       TH1D* c4;
+
+      TH1D* c2_k_imag;
+      TH1D* c2_m_imag;
+      TH1D* c3_imag;
+      TH1D* c4_imag;
 
       TH1D* Ntrk;
       TH1D* vtxZ;
