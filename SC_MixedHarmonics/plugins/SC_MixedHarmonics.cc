@@ -33,6 +33,11 @@ SC_MixedHarmonics::SC_MixedHarmonics(const edm::ParameterSet& iConfig)
 
   Nmin_ = iConfig.getUntrackedParameter<int>("Nmin");
   Nmax_ = iConfig.getUntrackedParameter<int>("Nmax");
+
+  n1_ = iConfig.getUntrackedParameter<int>("n1");
+  n2_ = iConfig.getUntrackedParameter<int>("n2");
+  n3_ = iConfig.getUntrackedParameter<int>("n3");
+  n4_ = iConfig.getUntrackedParameter<int>("n4");
   
   useCentrality_ = iConfig.getUntrackedParameter<bool>("useCentrality");
   reverseBeam_ = iConfig.getUntrackedParameter<bool>("reverseBeam");
@@ -162,6 +167,51 @@ SC_MixedHarmonics::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 
   Ntrk->Fill( nTracks );
 
+
+//Start filling Q-vectors;
+
+  TComplex Q_n1_1;
+  //TComplex Q_n1_1, Q_n2_1, Q_n1n2_2;
+  //TComplex Q_0_1, Q_0_2;
+
+
+  for(unsigned it = 0; it < tracks->size(); it++){
+
+     const reco::Track & trk = (*tracks)[it];
+  
+     math::XYZPoint bestvtx(bestvx,bestvy,bestvz);
+
+        double dzvtx = trk.dz(bestvtx);
+        double dxyvtx = trk.dxy(bestvtx);
+        double dzerror = sqrt(trk.dzError()*trk.dzError()+bestvzError*bestvzError);
+        double dxyerror = sqrt(trk.d0Error()*trk.d0Error()+bestvxError*bestvyError); 
+        double nhits = trk.numberOfValidHits();
+        double chi2n = trk.normalizedChi2();
+        double nlayers = trk.hitPattern().trackerLayersWithMeasurement();
+        chi2n = chi2n/nlayers;
+        double phi = trk.phi();
+
+        double weight = 1.0;
+        if( doEffCorrection_ ) { weight = 1.0/effTable->GetBinContent( effTable->FindBin(trk.eta(), trk.pt()) );}
+
+        if(!trk.quality(reco::TrackBase::highPurity)) continue;
+        if(fabs(trk.ptError())/trk.pt() > offlineptErr_ ) continue;
+        if(fabs(dzvtx/dzerror) > offlineDCA_) continue;
+        if(fabs(dxyvtx/dxyerror) > offlineDCA_) continue;
+        if(chi2n > offlineChi2_ ) continue;
+        if(nhits < offlinenhits_ ) continue;
+        if(trk.pt() < ptLow_ || trk.pt() > ptHigh_ ) continue;
+        if(fabs(trk.eta()) > etaTracker_ ) continue;
+
+
+        Q_n1_1 += q_vector(n1_, 1, weight, phi);
+        
+  }
+
+  cout << "Q_n1_1: " << Q_n1_1 << endl;
+
+
+
 }
 
 
@@ -172,6 +222,12 @@ SC_MixedHarmonics::beginJob()
   edm::Service<TFileService> fs;
     
   TH1D::SetDefaultSumw2();
+
+  edm::FileInPath fip1("SC_MixedHarmonics/SC_MixedHarmonics/data/Hydjet_eff_mult_v1.root");
+  TFile f1(fip1.fullPath().c_str(),"READ");
+  for(int i = 0; i < 5; i++){
+     effTable[i] = (TH2D*)f1.Get(Form("rTotalEff3D_%d",i));
+  }
 
   Ntrk = fs->make<TH1D>("Ntrk",";Ntrk",5000,0,5000);
   vtxZ = fs->make<TH1D>("vtxZ",";vz", 400,-20,20);

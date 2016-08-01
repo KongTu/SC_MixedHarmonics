@@ -168,7 +168,7 @@ class SC_MixedHarmonics : public edm::EDAnalyzer {
       edm::InputTag towerName_;
 
       //correction table
-      TH2D* effTable;
+      TH2D* effTable[5];
 
       TH1D* Ntrk;
       TH1D* vtxZ;
@@ -181,6 +181,11 @@ class SC_MixedHarmonics : public edm::EDAnalyzer {
 
       int Nmin_;
       int Nmax_;
+
+      int n1_;
+      int n2_;
+      int n3_;
+      int n4_;
 
       double etaTracker_;
       
