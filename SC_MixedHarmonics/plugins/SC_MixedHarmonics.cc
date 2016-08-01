@@ -105,7 +105,7 @@ SC_MixedHarmonics::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
   Handle<reco::TrackCollection> tracks;
   iEvent.getByToken(trackSrc_, tracks);
 
-  int total = 0;
+  int nTracks = 0;
   for(unsigned it = 0; it < tracks->size(); it++){
 
      const reco::Track & trk = (*tracks)[it];
@@ -122,11 +122,11 @@ SC_MixedHarmonics::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
         if(fabs(dzvtx/dzerror) > 3.0) continue;
         if(fabs(dxyvtx/dxyerror) > 3.0) continue;
         if(trk.pt() < 0.4 || fabs(trk.eta()) > 2.4) continue;
-        total++;//count multiplicity
+        nTracks++;//count multiplicity
 
   }
 
-  Ntrk->Fill( total );
+  if( !useCentrality_ ) if( nTracks < Nmin_ || nTracks >= Nmax_ ) return;
 
   double etHFtowerSumPlus = 0.0;
   double etHFtowerSumMinus = 0.0;
@@ -155,10 +155,12 @@ SC_MixedHarmonics::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
     }
 
     int hiBin = bin;
-    cbinHist->Fill( hiBin );
     if( hiBin < Nmin_ || hiBin >= Nmax_ ) return;
+    cbinHist->Fill( hiBin );
 
   }
+
+  Ntrk->Fill( nTracks );
 
 
 }
