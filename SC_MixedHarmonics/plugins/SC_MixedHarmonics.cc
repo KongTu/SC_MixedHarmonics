@@ -330,6 +330,11 @@ calculate 3-particle cumulant
   N_3 = Q_n1_1*Q_n2_1*Q_n3_1 - Q_n1n2_2*Q_n3_1 - Q_n2_1*Q_n1n3_2 - Q_n1_1*Q_n2n3_2 - Q_n1n2n3_3.operator*(2);
   D_3 = Q_0_1*Q_0_1*Q_0_1 - (Q_0_2*Q_0_1).operator*(3) + Q_0_3.operator*(2);
 
+  D_3_check = Q_0_1*Q_0_1*Q_0_1 - Q_0_2*Q_0_1 - Q_0_2*Q_0_1 - Q_0_2*Q_0_1 + Q_0_3 + Q_0_3;
+
+  cout << "D_3: " << D_3 << endl;
+  cout << "D_3_check: " << D_3_check << endl;
+
   c3->Fill( N_3.Re()/D_3.Re(), D_3.Re());
 
 /*
