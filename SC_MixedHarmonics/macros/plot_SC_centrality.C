@@ -62,4 +62,18 @@ void plot_SC_centrality(){
     r4->SetTextColor(kBlack);
     r4->Draw("same");
 
+    TLatex* r4 = new TLatex(0.23, 0.82, "0.3 #leq p_{T} < 5.0 GeV");
+    r4->SetNDC();
+    r4->SetTextSize(23);
+    r4->SetTextFont(43);
+    r4->SetTextColor(kBlack);
+    r4->Draw("same");
+
+    TLatex* r5 = new TLatex(0.23, 0.76, "|#eta| < 0.8");
+    r5->SetNDC();
+    r5->SetTextSize(23);
+    r5->SetTextFont(43);
+    r5->SetTextColor(kBlack);
+    r5->Draw("same");
+
 }
