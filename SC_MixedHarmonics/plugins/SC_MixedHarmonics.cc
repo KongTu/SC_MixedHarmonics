@@ -172,8 +172,6 @@ SC_MixedHarmonics::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 
   Ntrk->Fill( nTracks );
 
-  const int NetaBins = etaBins_.size() - 1 ;
-
 /*
 The SC(m,n) = <<cos(m+n-m-n)>> - <<cos(m-m)>><<cos(n-n)>>
  */
@@ -229,7 +227,7 @@ where Q_coefficient_power is used in the following names
         if(chi2n > offlineChi2_ ) continue;
         if(nhits < offlinenhits_ ) continue;
         if(trk.pt() < ptLow_ || trk.pt() > ptHigh_ ) continue;
-        if(fabs(trk.eta()) > etaTracker_ ) continue;
+        if(fabs(trkEta) > etaTracker_ ) continue;
 
         //for use of 2-particle:
         Q_k1_1 += q_vector(n1_, 1, weight, phi);
