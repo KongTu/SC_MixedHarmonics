@@ -229,6 +229,8 @@ where Q_coefficient_power is used in the following names
         if(trk.pt() < ptLow_ || trk.pt() > ptHigh_ ) continue;
         if(fabs(trkEta) > etaTracker_ ) continue;
 
+        cout << "weight: " << weight << endl;
+
         //for use of 2-particle:
         Q_k1_1 += q_vector(n1_, 1, weight, phi);
         Q_k2_1 += q_vector(-n1_, 1, weight, phi);
