@@ -232,11 +232,11 @@ where Q_coefficient_power is used in the following names
         //for use of 2-particle:
         Q_k1_1 += q_vector(n1_, 1, weight, phi);
         Q_k2_1 += q_vector(-n1_, 1, weight, phi);
-        Q_k1k2_2 += q_vector(0.0, 1, weight, phi);
+        Q_k1k2_2 += q_vector(0.0, 2, weight, phi);
 
         Q_m1_1 += q_vector(n2_, 1, weight, phi);
         Q_m2_1 += q_vector(-n2_, 1, weight, phi);
-        Q_m1m2_2 += q_vector(0.0, 1, weight, phi);
+        Q_m1m2_2 += q_vector(0.0, 2, weight, phi);
 
         //for use of 4-particle:
         Q_n1_1 += q_vector(n1_, 1, weight, phi);
