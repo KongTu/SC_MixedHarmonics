@@ -39,20 +39,42 @@ process.NoScraping = cms.EDFilter("FilterOutScraping",
 process.source = cms.Source("PoolSource",
     # replace 'myfile.root' with the source file you want to use
     fileNames = cms.untracked.vstring(
-'/store/hidata/HIRun2015/HIMinimumBias5/AOD/02May2016-v1/10000/006477CE-3326-E611-8C08-003048F317E6.root'
-#'file:/afs/cern.ch/work/z/ztu/CME/CMSSW_7_5_8_patch3/src/CMEandCorrelation/ThreePointCorrelator/test/step2pp_RAW2DIGI_L1Reco_RECO_1.root'
-#'/store/user/davidlw/EPOS_PbPb5TeV/Cent30100_DIGI-RECO_v1/160629_095734/0000/step2_FILTER_DIGI_L1_DIGI2RAW_RAW2DIGI_L1Reco_RECO_1.root'
-#'root://xrootd-cms.infn.it//store/user/gsfs/Hydjet_Quenched_MinBias_5020GeV_750/Hydjet_30_100_w_pp_RECO_20160724/160725_221957/0000/step3_FILTER_RAW2DIGI_L1Reco_RECO_1.root'
+#'/store/hidata/HIRun2015/HIMinimumBias5/AOD/02May2016-v1/10000/006477CE-3326-E611-8C08-003048F317E6.root'
+'file:/afs/cern.ch/work/z/zhchen/public/PbPb_MB_10.root'
 )
 )
 
 process.load("SC_MixedHarmonics.SC_MixedHarmonics.sc_mixedharmonics_cfi")
 
 #define the cuts
+process.ana_m3n2 = process.ana.clone()
+process.ana_m4n2 = process.ana.clone()
+
+process.ana_m3n2.Nmin = 60
+process.ana_m3n2.Nmax = 80
+process.ana_m3n2.useCentrality = True
+process.ana_m3n2.doEffCorrection = True
+process.ana_m3n2.n1 = +3
+process.ana_m3n2.n2 = +2
+process.ana_m3n2.n3 = -3
+process.ana_m3n2.n4 = -2
+process.ana_m3n2.ptHigh = 5.0
+process.ana_m3n2.etaTracker = 0.8
+
+process.ana_m4n2.Nmin = 60
+process.ana_m4n2.Nmax = 80
+process.ana_m4n2.useCentrality = True
+process.ana_m4n2.doEffCorrection = True
+process.ana_m4n2.n1 = +4
+process.ana_m4n2.n2 = +2
+process.ana_m4n2.n3 = -4
+process.ana_m4n2.n4 = -2
+process.ana_m4n2.ptHigh = 5.0
+process.ana_m4n2.etaTracker = 0.8
 
 process.TFileService = cms.Service("TFileService",fileName = cms.string("test.root"))
-process.p = cms.Path(  process.hfCoincFilter3 *
-                       process.PAprimaryVertexFilter *
-                       process.NoScraping *
-                       process.ana
-                        )
+process.p = cms.Path(  #process.hfCoincFilter3 *
+                       #process.PAprimaryVertexFilter *
+                       #process.NoScraping *
+                        process.ana_m3n2 * 
+		        process.ana_m4n2)
