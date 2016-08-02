@@ -11,8 +11,8 @@ void makeTGraph_PbPb_5TeV_Centrality(){
 
 	for(int i = 0; i < 5; i++){
 
-		file1[i] = new TFile(Form("../rootfiles/SC_MixedHarmonics_PbPb_m3n2_v1_%d.root", i+1));
-		file2[i] = new TFile(Form("../rootfiles/SC_MixedHarmonics_PbPb_m4n2_v1_%d.root", i+1));
+		file1[i] = new TFile(Form("../rootfiles/SC_MixedHarmonics_PbPb_m3n2_v2_%d.root", i+1));
+		file2[i] = new TFile(Form("../rootfiles/SC_MixedHarmonics_PbPb_m4n2_v2_%d.root", i+1));
 	}
 
 	TH1D* c2_k_m3n2[5];
