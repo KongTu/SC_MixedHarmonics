@@ -2,7 +2,7 @@
 
 ## SC stands for "standard candle" correlator, and it is essentially
 
-$\phi$
+\phi
 
 $ cos(m\phi)$
 
