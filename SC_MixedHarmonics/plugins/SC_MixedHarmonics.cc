@@ -277,6 +277,7 @@ where Q_coefficient_power is used in the following names
 
   }
     
+  double multiplicity = (double) nTracks;
 
 /*
 calculate 2-particle cumulant with a gap
@@ -307,19 +308,19 @@ calculate 2-particle cumulant with a gap
       
       if(deltaEta >= gapValue_){
 
-        c2_Gap_n1->Fill(N_2_k.Re()/D_2.Re(), nTracks, D_2.Re());
-        c2_Gap_n2->Fill(N_2_m.Re()/D_2.Re(), nTracks, D_2.Re());
+        c2_Gap_n1->Fill(N_2_k.Re()/D_2.Re(), multiplicity, D_2.Re());
+        c2_Gap_n2->Fill(N_2_m.Re()/D_2.Re(), multiplicity, D_2.Re());
 
-        c2_Gap_n1_imag->Fill(N_2_k.Im()/D_2.Re(), nTracks, D_2.Re());
-        c2_Gap_n2_imag->Fill(N_2_m.Im()/D_2.Re(), nTracks, D_2.Re());
+        c2_Gap_n1_imag->Fill(N_2_k.Im()/D_2.Re(), multiplicity, D_2.Re());
+        c2_Gap_n2_imag->Fill(N_2_m.Im()/D_2.Re(), multiplicity, D_2.Re());
 
       }
 
-      c2_noGap_n1->Fill(N_2_k.Re()/D_2.Re(), nTracks, D_2.Re());
-      c2_noGap_n2->Fill(N_2_m.Re()/D_2.Re(), nTracks, D_2.Re());
+      c2_noGap_n1->Fill(N_2_k.Re()/D_2.Re(), multiplicity, D_2.Re());
+      c2_noGap_n2->Fill(N_2_m.Re()/D_2.Re(), multiplicity, D_2.Re());
 
-      c2_noGap_n1_imag->Fill(N_2_k.Im()/D_2.Re(), nTracks, D_2.Re());
-      c2_noGap_n2_imag->Fill(N_2_m.Im()/D_2.Re(), nTracks, D_2.Re());
+      c2_noGap_n1_imag->Fill(N_2_k.Im()/D_2.Re(), multiplicity, D_2.Re());
+      c2_noGap_n2_imag->Fill(N_2_m.Im()/D_2.Re(), multiplicity, D_2.Re());
         
     }
   }
@@ -333,8 +334,8 @@ calculate 3-particle cumulant
   N_3 = Q_n1_1*Q_n2_1*Q_n3_1 - Q_n1n2_2*Q_n3_1 - Q_n2_1*Q_n1n3_2 - Q_n1_1*Q_n2n3_2 - Q_n1n2n3_3.operator*(2);
   D_3 = Q_0_1*Q_0_1*Q_0_1 - (Q_0_2*Q_0_1).operator*(3) + Q_0_3.operator*(2);
 
-  c3->Fill( N_3.Re()/D_3.Re(), nTracks, D_3.Re());
-  c3_imag->Fill( N_3.Im()/D_3.Re(), nTracks, D_3.Re());
+  c3->Fill( N_3.Re()/D_3.Re(), multiplicity, D_3.Re());
+  c3_imag->Fill( N_3.Im()/D_3.Re(), multiplicity, D_3.Re());
 /*
 calculate 4-particle cumulant
  */  
@@ -349,9 +350,9 @@ calculate 4-particle cumulant
 
   D_4 = Q_0_1*Q_0_1*Q_0_1*Q_0_1 - (Q_0_1*Q_0_1*Q_0_2).operator*(6) + (Q_0_2*Q_0_2).operator*(3) + (Q_0_1*Q_0_3).operator*(8) - Q_0_4.operator*(6);
  
-  c4->Fill( N_4.Re()/D_4.Re(), nTracks, D_4.Re());
-  c4_imag->Fill( N_4.Im()/D_4.Re(), nTracks, D_4.Re());
-  c4_count->Fill( D_4.Re(), nTracks);
+  c4->Fill( N_4.Re()/D_4.Re(), multiplicity, D_4.Re());
+  c4_imag->Fill( N_4.Im()/D_4.Re(), multiplicity, D_4.Re());
+  c4_count->Fill( D_4.Re(), multiplicity);
 
 
 }
