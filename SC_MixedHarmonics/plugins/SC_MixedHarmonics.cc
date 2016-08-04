@@ -305,24 +305,22 @@ calculate 2-particle cumulant with a gap
         D_2 = Q_eta_0_1[ieta]*Q_eta_0_1[jeta];
       }
       
-      if( useEtaGap_ ){
-        if(deltaEta < gapValue_) continue;
+      if(deltaEta >= gapValue_){
 
-        c2_k->Fill(N_2_k.Re()/D_2.Re(), D_2.Re());
-        c2_m->Fill(N_2_m.Re()/D_2.Re(), D_2.Re());
+        c2_Gap_n1->Fill(N_2_k.Re()/D_2.Re(), D_2.Re());
+        c2_Gap_n2->Fill(N_2_m.Re()/D_2.Re(), D_2.Re());
 
-        c2_k_imag->Fill(N_2_k.Im()/D_2.Re(), D_2.Re());
-        c2_m_imag->Fill(N_2_m.Im()/D_2.Re(), D_2.Re());
+        c2_Gap_n1_imag->Fill(N_2_k.Im()/D_2.Re(), D_2.Re());
+        c2_Gap_n2_imag->Fill(N_2_m.Im()/D_2.Re(), D_2.Re());
+
       }
-      else{
 
-        c2_k->Fill(N_2_k.Re()/D_2.Re(), D_2.Re());
-        c2_m->Fill(N_2_m.Re()/D_2.Re(), D_2.Re());
+      c2_noGap_n1->Fill(N_2_k.Re()/D_2.Re(), D_2.Re());
+      c2_noGap_n2->Fill(N_2_m.Re()/D_2.Re(), D_2.Re());
 
-        c2_k_imag->Fill(N_2_k.Im()/D_2.Re(), D_2.Re());
-        c2_m_imag->Fill(N_2_m.Im()/D_2.Re(), D_2.Re());
+      c2_noGap_n1_imag->Fill(N_2_k.Im()/D_2.Re(), D_2.Re());
+      c2_noGap_n2_imag->Fill(N_2_m.Im()/D_2.Re(), D_2.Re());
         
-      }
     }
   }
 
@@ -374,13 +372,19 @@ SC_MixedHarmonics::beginJob()
   vtxZ = fs->make<TH1D>("vtxZ",";vz", 400,-20,20);
   cbinHist = fs->make<TH1D>("cbinHist",";cbin",200,0,200);
 
-  c2_k = fs->make<TH1D>("c2_k",";c2", 20000,-1,1);
-  c2_m = fs->make<TH1D>("c2_m",";c2", 20000,-1,1);
+  c2_Gap_n1 = fs->make<TH1D>("c2_Gap_n1",";c2", 20000,-1,1);
+  c2_Gap_n2 = fs->make<TH1D>("c2_Gap_n2",";c2", 20000,-1,1);
+  c2_noGap_n1 = fs->make<TH1D>("c2_noGap_n1",";c2", 20000,-1,1);
+  c2_noGap_n2 = fs->make<TH1D>("c2_noGap_n2",";c2", 20000,-1,1);
+  
   c3 = fs->make<TH1D>("c3",";c3", 20000,-1,1);
   c4 = fs->make<TH1D>("c4",";c4", 20000,-1,1);
 
-  c2_k_imag = fs->make<TH1D>("c2_k_imag",";c2", 20000,-1,1);
-  c2_m_imag = fs->make<TH1D>("c2_m_imag",";c2", 20000,-1,1);
+  c2_Gap_n1_imag = fs->make<TH1D>("c2_Gap_n1_imag",";c2", 20000,-1,1);
+  c2_Gap_n2_imag = fs->make<TH1D>("c2_Gap_n2_imag",";c2", 20000,-1,1);
+  c2_noGap_n1_imag = fs->make<TH1D>("c2_noGap_n1_imag",";c2", 20000,-1,1);
+  c2_noGap_n2_imag = fs->make<TH1D>("c2_noGap_n2_imag",";c2", 20000,-1,1);
+
   c3_imag = fs->make<TH1D>("c3_imag",";c3", 20000,-1,1);
   c4_imag = fs->make<TH1D>("c4_imag",";c4", 20000,-1,1);
 }
