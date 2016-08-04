@@ -354,9 +354,6 @@ calculate 4-particle cumulant
   c4_imag->Fill( N_4.Im()/D_4.Re(), multiplicity, D_4.Re());
   c4_count->Fill( D_4.Re(), multiplicity);
 
-  cout << "count: " << D_4.Re() << endl;
-
-
 }
 // ------------ method called once each job just before starting event loop  ------------
 void 
@@ -384,7 +381,7 @@ SC_MixedHarmonics::beginJob()
   c3 = fs->make<TH2D>("c3",";c3", 2000,-1,1, Nmax_ - Nmin_, Nmin_, Nmax_);
   c4 = fs->make<TH2D>("c4",";c4", 2000,-1,1, Nmax_ - Nmin_, Nmin_, Nmax_);
 
-  c4_count = fs->make<TH2D>("c4_count",";c4_count", 2000,-1000000,1000000, Nmax_ - Nmin_, Nmin_, Nmax_);
+  c4_count = fs->make<TH2D>("c4_count",";c4_count", 2000,100000000,100000000000, Nmax_ - Nmin_, Nmin_, Nmax_);
 
   c2_Gap_n1_imag = fs->make<TH2D>("c2_Gap_n1_imag",";c2", 2000,-1,1, Nmax_ - Nmin_, Nmin_, Nmax_);
   c2_Gap_n2_imag = fs->make<TH2D>("c2_Gap_n2_imag",";c2", 2000,-1,1, Nmax_ - Nmin_, Nmin_, Nmax_);
