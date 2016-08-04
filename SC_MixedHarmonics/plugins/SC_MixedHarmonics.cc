@@ -374,23 +374,23 @@ SC_MixedHarmonics::beginJob()
   vtxZ = fs->make<TH1D>("vtxZ",";vz", 400,-20,20);
   cbinHist = fs->make<TH1D>("cbinHist",";cbin",200,0,200);
 
-  c2_Gap_n1 = fs->make<TH1D>("c2_Gap_n1",";c2", 20000,-1,1, 5000,0,5000);
-  c2_Gap_n2 = fs->make<TH1D>("c2_Gap_n2",";c2", 20000,-1,1, 5000,0,5000);
-  c2_noGap_n1 = fs->make<TH1D>("c2_noGap_n1",";c2", 20000,-1,1, 5000,0,5000);
-  c2_noGap_n2 = fs->make<TH1D>("c2_noGap_n2",";c2", 20000,-1,1, 5000,0,5000);
+  c2_Gap_n1 = fs->make<TH2D>("c2_Gap_n1",";c2", 20000,-1,1, 5000,0,5000);
+  c2_Gap_n2 = fs->make<TH2D>("c2_Gap_n2",";c2", 20000,-1,1, 5000,0,5000);
+  c2_noGap_n1 = fs->make<TH2D>("c2_noGap_n1",";c2", 20000,-1,1, 5000,0,5000);
+  c2_noGap_n2 = fs->make<TH2D>("c2_noGap_n2",";c2", 20000,-1,1, 5000,0,5000);
   
-  c3 = fs->make<TH1D>("c3",";c3", 20000,-1,1, 5000,0,5000);
-  c4 = fs->make<TH1D>("c4",";c4", 20000,-1,1, 5000,0,5000);
+  c3 = fs->make<TH2D>("c3",";c3", 20000,-1,1, 5000,0,5000);
+  c4 = fs->make<TH2D>("c4",";c4", 20000,-1,1, 5000,0,5000);
 
-  c4_count = fs->make<TH1D>("c4_count",";c4_count", 20000,-10000,10000, 5000,0,5000);
+  c4_count = fs->make<TH2D>("c4_count",";c4_count", 20000,-10000,10000, 5000,0,5000);
 
-  c2_Gap_n1_imag = fs->make<TH1D>("c2_Gap_n1_imag",";c2", 20000,-1,1, 5000,0,5000);
-  c2_Gap_n2_imag = fs->make<TH1D>("c2_Gap_n2_imag",";c2", 20000,-1,1, 5000,0,5000);
-  c2_noGap_n1_imag = fs->make<TH1D>("c2_noGap_n1_imag",";c2", 20000,-1,1, 5000,0,5000);
-  c2_noGap_n2_imag = fs->make<TH1D>("c2_noGap_n2_imag",";c2", 20000,-1,1, 5000,0,5000);
+  c2_Gap_n1_imag = fs->make<TH2D>("c2_Gap_n1_imag",";c2", 20000,-1,1, 5000,0,5000);
+  c2_Gap_n2_imag = fs->make<TH2D>("c2_Gap_n2_imag",";c2", 20000,-1,1, 5000,0,5000);
+  c2_noGap_n1_imag = fs->make<TH2D>("c2_noGap_n1_imag",";c2", 20000,-1,1, 5000,0,5000);
+  c2_noGap_n2_imag = fs->make<TH2D>("c2_noGap_n2_imag",";c2", 20000,-1,1, 5000,0,5000);
 
-  c3_imag = fs->make<TH1D>("c3_imag",";c3", 20000,-1,1, 5000,0,5000);
-  c4_imag = fs->make<TH1D>("c4_imag",";c4", 20000,-1,1, 5000,0,5000);
+  c3_imag = fs->make<TH2D>("c3_imag",";c3", 20000,-1,1, 5000,0,5000);
+  c4_imag = fs->make<TH2D>("c4_imag",";c4", 20000,-1,1, 5000,0,5000);
 }
 
 TComplex 
