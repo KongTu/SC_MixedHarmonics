@@ -382,7 +382,7 @@ SC_MixedHarmonics::beginJob()
   c3 = fs->make<TH2D>("c3",";c3", 2000,-1,1, Nmax_ - Nmin_, Nmin_, Nmax_);
   c4 = fs->make<TH2D>("c4",";c4", 2000,-1,1, Nmax_ - Nmin_, Nmin_, Nmax_);
 
-  c4_count = fs->make<TH2D>("c4_count",";c4_count", 2000,-10000,10000, Nmax_ - Nmin_, Nmin_, Nmax_);
+  c4_count = fs->make<TH2D>("c4_count",";c4_count", 2000,-1000000,1000000, Nmax_ - Nmin_, Nmin_, Nmax_);
 
   c2_Gap_n1_imag = fs->make<TH2D>("c2_Gap_n1_imag",";c2", 2000,-1,1, Nmax_ - Nmin_, Nmin_, Nmax_);
   c2_Gap_n2_imag = fs->make<TH2D>("c2_Gap_n2_imag",";c2", 2000,-1,1, Nmax_ - Nmin_, Nmin_, Nmax_);
