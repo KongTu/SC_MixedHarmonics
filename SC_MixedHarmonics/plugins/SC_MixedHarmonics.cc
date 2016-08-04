@@ -354,6 +354,8 @@ calculate 4-particle cumulant
   c4_imag->Fill( N_4.Im()/D_4.Re(), multiplicity, D_4.Re());
   c4_count->Fill( D_4.Re(), multiplicity);
 
+  cout << "count: " << D_4.Re() << endl;
+
 
 }
 // ------------ method called once each job just before starting event loop  ------------
