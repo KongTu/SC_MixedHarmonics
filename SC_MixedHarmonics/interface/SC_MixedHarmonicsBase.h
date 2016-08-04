@@ -170,19 +170,22 @@ class SC_MixedHarmonics : public edm::EDAnalyzer {
       //correction table
       TH2D* effTable[5];
 
-      TH1D* c2_Gap_n1;
-      TH1D* c2_Gap_n2;
-      TH1D* c2_noGap_n1;
-      TH1D* c2_noGap_n2;
-      TH1D* c3;
-      TH1D* c4;
+      TH2D* c2_Gap_n1;
+      TH2D* c2_Gap_n2;
+      TH2D* c2_noGap_n1;
+      TH2D* c2_noGap_n2;
 
-      TH1D* c2_Gap_n1_imag;
-      TH1D* c2_Gap_n2_imag;
-      TH1D* c2_noGap_n1_imag;
-      TH1D* c2_noGap_n2_imag;
-      TH1D* c3_imag;
-      TH1D* c4_imag;
+      TH2D* c3;
+
+      TH2D* c4;
+      TH2D* c4_count;
+
+      TH2D* c2_Gap_n1_imag;
+      TH2D* c2_Gap_n2_imag;
+      TH2D* c2_noGap_n1_imag;
+      TH2D* c2_noGap_n2_imag;
+      TH2D* c3_imag;
+      TH2D* c4_imag;
 
       TH1D* Ntrk;
       TH1D* vtxZ;
